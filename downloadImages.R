@@ -3,6 +3,8 @@
 # set working directory
 this_dir <- function(directory)
 setwd( file.path(getwd(), directory) )
+# create directory for images
+dir.create("images", showWarnings = FALSE)
 
 # read all csv-files in working directory
 filenames <- list.files(pattern="*.csv", full.names=TRUE)

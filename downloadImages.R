@@ -1,8 +1,10 @@
 # code written by Frits de Roos. Feel free to use or modify this code.
 
 # set working directory
-this.dir <- dirname(parent.frame(2)$ofile)
-setwd(this.dir)
+this_dir <- function(directory)
+setwd( file.path(getwd(), directory) )
+# create directory for images
+dir.create("images", showWarnings = FALSE)
 
 # read all csv-files in working directory
 filenames <- list.files(pattern="*.csv", full.names=TRUE)

@@ -7,6 +7,8 @@ setwd(this.dir)
 # read all csv-files in working directory
 filenames <- list.files(pattern="*.csv", full.names=TRUE)
 ldf <- lapply(filenames, read.csv, col.names=1:7)
+# read all jpg-files in the ./images subdirectory
+imageNames <- list.files(path="./images", pattern="*.JPG", full.names=TRUE)
 
 # define function to remove rows from a table or list
 removeRows <- function(x, numberOfRows){
@@ -26,7 +28,11 @@ destinations <- as.character(lapply(destinations, function(x) x[10]))
 destinations <- strsplit(destinations, split='?', fixed=TRUE)
 destinations <- as.character(lapply(destinations, function(x) x[1]))
 destinations <- paste0("./images/", destinations)
-# download all images. This can take quite some time.
+# download all images (if not already downloaded). This can take quite some time.
 for(i in seq_along(urls)){
-  download.file(urls[i], destinations[i], mode="wb")
+  if(!(destinations[i] %in% imageNames)){
+    download.file(urls[i], destinations[i], mode="wb")
+  } else{
+    print("already downloaded")
+  }
 }
